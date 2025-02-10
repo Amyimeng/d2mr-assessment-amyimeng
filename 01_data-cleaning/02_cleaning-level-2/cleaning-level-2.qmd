@@ -82,21 +82,45 @@ View(midwest)
 
 QUESTIONS:
 
-1. What are the differences between the messy dataset and the original midwest dataset?
+Q1. What are the differences between the messy dataset and the original midwest dataset?
 
 <!-- answer below -->
+There are a number of differences:
 
-2. What are the biggest issues you need to address in cleaning?
+1. The variable in the messy dataset are not properly named and their order is not neat. Specifically, the changes need to be made are:  
+  a)'0' needs to be replaced by 'o'
+  b) all lower case except "PID"
+  c) the variables starting with 'Popupation xxx' needs to be changed to 'popxxx'
+  d) Each broader category's variables needs to stay together (i.e., population, ethinicity percentage, educational level percentage, poverty percentage) 
+2. PID in the orignial dataset is in order, but in the messy dataset it is in random order.
+3. In 'county',all upper case. Also, '1'needs to be replaced by 'l', '0' to be replaced by 'o' and '3' to be replaced by 'e'.
+4. In 'state',only keep the first two letter of the state's name, also it needs to be in upper case.
+5. Some values in 'Percentage Asian' and 'perother' are not avaialab (i.e., noted as 'NA'), however in the original dataset they are available.
+6. 27 columns in the original dataset, but there are 28 in the messy one.
+
+Q2. What are the biggest issues you need to address in cleaning?
 
 <!-- answer below -->
+1. Why are some data not available in the messy dataset but they become avaiable in the original one?
+2. Why are there 28 columns in the original dataset, but only 27 in the messy dataset?
+3. Matching variable names can take a lot of work.
 
-3. Are there any differences between the messy dataset and the original dataset that you do not need or want to address in cleaning? If so, why (not)?
+
+Q3. Are there any differences between the messy dataset and the original dataset that you do not need or want to address in cleaning? If so, why (not)?
 
 <!-- answer below -->
+1. In the original dataset, there is a variable called "*per*college"---- I would rather change it to per*c*college, just to keep it consistent with other percentage variable names (i.e., 'perc' as an abbrevation for 'percentage' instead of 'per' )
+2. I probably would not change the 'NA's in the messy dataset to match the original dataset. The only way to do this that I can think of is to replace the 'NA's with the values from the original dataset, but in reality I would not just replace a value with another one. Instead, I would find out why there are dismatches first.
+3. Regarding the one extra column in the messy dataset, I would not delete it. In stead, I would move it to the very end so that it does not interfere with the all.equal() function.
 
-4. Are there additional cleaning tasks you would like to perform beyond matching the original dataset? If so, what are they and why do you think they are important?
+
+
+Q4. Are there additional cleaning tasks you would like to perform beyond matching the original dataset? If so, what are they and why do you think they are important?
 
 <!-- answer below -->
+If this is my dataset, the first thing I will do is to screen out any data that is inapproapriate. For example, are the percentages less than 100?
+Other things that I would like to do is to keep 2 decimal places for all the numbers---- it is just easlier to observe whether there is anything wrong this way.
+I would also change percentages to 0.something instead of a number out of 100. This way when I need to perform some culculations I do not need to divide the numbers by 100. 
 
 # Cleaning
 
@@ -106,41 +130,6 @@ If you're not sure where to start, you can organize your cleaning into the follo
 
 You can additionally/alternatively construct your cleaning in a single pipeline in the last chunk.
 
-## Selecting, renaming, and reordering columns
-
-```{r}
-
-```
-
-## Changing data types
-
-```{r}
-
-```
-
-
-## Mutating data
-
-```{r}
-
-```
-
-
-## Using stringr and forcats
-
-```{r}
-
-```
-
-
-## Other cleaning tasks
-
-```{r}
-
-```
-
-
-
 
 ## All cleaning in a single pipeline
 
@@ -149,6 +138,110 @@ You can additionally/alternatively construct your cleaning in a single pipeline 
 
 #| label: one-pipeline
 
+clean.midwest <- messy.midwest %>%
+  rename_with(~str_to_lower(str_replace_all(.,c("0"="o","Population "="pop","Percentage "="perc","Over 18"="adult","Name"=""," "=""))),-PID) 
+
+#In variable namens, replace all the '0's with 'o' , 'Population ' with 'pop' ,'Percentage ' with 'perc', also delete 'Name'(from county name) and spaces. Change everything except for PID to lowercase.
+
+all.equal(colnames(clean.midwest),colnames(midwest)) 
+# So far, the message from all.equal is :"Lengths (27, 28) differ (string compare on first 27)","18 string mismatches" , so furhter work is needed
+
+#At this stage I will check what the matching variable names are:
+
+common_col<-intersect(colnames(clean.midwest),colnames(midwest))
+print(common_col)
+
+#Alternatively, I can use a more comlicated way to check the non-internecting column names:
+
+non_common_col <- union(setdiff(colnames(clean.midwest),colnames(midwest)),setdiff(colnames(midwest),colnames(clean.midwest)))
+print(non_common_col)
+
+#Turns out that I have 22 common column names. I just need to deal with the rest 5(+1 that is an extra column). There are two pathways that I can take: 1. I can arrange the already-matching variables in order first, then deal with the rest. 2. I can manully change what does not match than match their orders. Since there are only 5 that do not match, I will just manully change the variable names.
+
+clean.midwest <- clean.midwest %>%
+  rename(area =`area(sqmiles)`,poptotal = totalpopulation, popadults = popadult, percollege = perccollege)
+
+print(setdiff(colnames(clean.midwest),colnames(midwest)))
+#Returns "poppersqmile", meaning clean.midwest has "poppersqmile" but midwest does not have this variable.
+print(setdiff(colnames(midwest),colnames(clean.midwest)))
+#Returns "percwhite" "percblack", meaning midwest has these variables but clean.midwest do not.
+
+#Now I finally understand why midwest has 28 columns and the messy dataset has only 27. It's not that midwest has one extra dataset but two ---- and I will need to calculate these two columns and add them to the clean.dataset. Also "poppersqmile" is a column that does not exist in the original dataset. I will just keep it at the very end. 
+
+#Now I am going to reorder clean.midwest's variable names based on the original dataset. 
+#First I will creat a new dataset including a
+properly_named_common_cols <-intersect(colnames(midwest),colnames(clean.midwest)) #make sure 'midwest' comes first so that the product vector follows the order of 'midwest'.
+
+print(properly_named_common_cols)
+clean.midwest<-clean.midwest %>%
+  select(all_of(properly_named_common_cols),everything())
+head(clean.midwest)
+
+#Now let's check all.equal
+
+all.equal(colnames(midwest),colnames(clean.midwest))
+
+#Returns "Lengths (28, 27) differ (string compare on first 27)", "16 string mismatches" 
+
+#I will put two dataset's variable names together and visualize them to find out what doesn't match
+
+library(tibble)
+
+header_tables<-(rbind(colnames(midwest),colnames(clean.midwest)))
+print(header_tables)
+
+#oK looks like I just need to calculate percentage white and percentage black and place them after "popother". But before doing that I need to change columns 1 & 4:25 to numeric.
+
+clean.midwest <- clean.midwest %>%
+  mutate(across(c(1,4:25,27),~as.numeric(.)),percwhite = popwhite/poptotal*100, percblack = popblack/poptotal*100) %>% 
+  relocate(percwhite, .after = popother) %>%
+  relocate(percblack, .after = percwhite)
+
+header_tables<-(rbind(colnames(midwest),colnames(clean.midwest)))
+print(header_tables)
+
+all.equal(colnames(midwest), colnames(clean.midwest))
+#Now all the variable names match (except that clean.midwest has one extra column at the very end which I want to keep )
+
+#The next step is to:
+# 1. Arrange PID in ascending order
+# 2. In 'county',all values need to be in upper case. Also, '1'needs to be replaced by 'l', '0' to be replaced by 'o' and '3' to be replaced by 'e'. Also trim all the spaces.
+# 3. In 'state',only keep the first two letter of the state's name, also it needs to be in upper case.
+
+clean.midwest <- clean.midwest %>%
+  arrange(PID) %>%
+  mutate(
+    county = county %>%
+      str_to_upper() %>%
+      str_replace_all(c("1" = "L", "0" = "O", "3" = "E"))%>%
+      str_trim(),
+    state = state %>%
+      str_sub(1,2)%>%
+      str_to_upper()
+    )
+
+all.equal(clean.midwest,midwest)
+
+# still 1 dismatch in county
+
+dismatch_clean <- setdiff(clean.midwest$county, midwest$county)
+dismatch_midwest <- setdiff(midwest$county, clean.midwest$county)
+print(dismatch_clean) 
+print(dismatch_midwest)  
+# So there is a "Winnebago" in midwest but not in clean.midwest.
+
+which(midwest$county == "Winnebago")
+# Turns out it's in role 101.
+#Since in the original dataset 'midwest' county[101] is in lower case and we actually want everything to be in upper case, I'm actually just going to leave it as it is. 
+
+#Lastly, I will deal with the 'NA' values in percasian and percother by recultulating the values. 
+
+clean.midwest <- clean.midwest %>%
+  mutate(percasian = popasian/poptotal*100, 
+         percother = popother/poptotal*100
+         )
+
+all.equal(clean.midwest,midwest)
 
 ```
 
@@ -161,10 +254,15 @@ QUESTIONS:
 1. Is your dataset identical to `midwest`? If not, what is different? (Remember the functions `all.equal()` and `diff_data()` can help here.)
 
 <!-- answer below -->
+No. There are two differences.
+First, midwest$county[101] is in lower case (i.e., Winnebago), which is inconsistent from the rest of the data, so in clean.midwest$county[101] I just keep this value in upper case.
+Second, there is an extra column (population per square mile) in clean.midwest, which I figure might be useful, so I keep it at the very end so that it would not interfere with the comparison of the rest columns. 
+
 
 2. Did you make any choices to clean the data that resulted in the dataset not matching the original? Why did you make those choices?
 
 <!-- answer below -->
+Actually I didn't do anything that resulted int the dataset not matching the original, except for clean.midwest$county[101] which I kept at upper case to mathch with the overall format.
 
 3. Were there any cleaning steps -- whether necessary to recreate the original df or just because you wanted to do them -- that you weren't able to implement? If so, what were they and what more would you need to do/know to implement them? 
 

@@ -27,7 +27,7 @@ Just follow along! Open this quarto notebook and run chunks as you get to them. 
 #| label: setup
 library(tidyverse)
 set.seed(1234)
-
+library(dplyr)
 ```
 
 
@@ -56,7 +56,7 @@ messy.iris <- read_csv(
 head(messy.iris)
 str(messy.iris)
 glimpse(messy.iris)
-
+?head
 
 ```
 
@@ -88,6 +88,7 @@ We can compare the messy and original datasets to identify the differences betwe
 all.equal(messy.iris, iris)
 ```
 The `all.equal()` function will return a message indicating the differences between the two datasets. Here we've got a total of `r length(all.equal(messy.iris, iris))` differences.
+
 
 <!-- See what I did there with the `r`? That's an inline R expression, which is a handy way to include the results of R code in your text. Right now when I run this, I see 17 errors, but what if I change this guide in the future to make it easier or more complicated? This way, I don't have to remember to update the number in the text. That inline expression will always be accurate, while "17" could be wrong. -->
 
@@ -190,6 +191,7 @@ If we take a look at the column names in our working dataset (`colnames(clean.ir
 # Reorder columns to match the original iris dataset with relocate()
 clean.iris <- clean.iris %>%
   relocate(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Species)
+
 
 ```
 
@@ -400,7 +402,7 @@ clean.iris <- clean.iris %>%
     mutate(
         # Replace "setsoa" with "setosa"
         Species = str_replace_all(Species, "setsoa", "setosa"),
-        # Replace "versicolr" with "versicolor"
+        # Replace "versicolour" with "versicolor"
         Species = str_replace_all(Species, "versicolour", "versicolor"),
         # Replace "virginia" with "virginica"
         Species = str_replace_all(Species, "virginia", "virginica")
