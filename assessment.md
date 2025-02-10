@@ -11,13 +11,13 @@
 
 ## Basic information
 
-Name:
+Name: Yimeng Cheng
 
-CNetID:
+CNetID:yiemngcheng
 
-Section:
+Section: 1
 
-Mini-project title:
+Mini-project title: "Level 2 Data Cleaning: Clean the midwest Dataset"
 
 Submission date:
 
@@ -29,12 +29,15 @@ URL or instructions to access additional materials, if needed:
 ## Additional information
 
 1. Did you complete the project with direct collaborators or general support? If so, who did you collaborate with and what was/were their contribution(s)?
+### No
     1. Direct collaborators (students who will be turning in a version of the same project) and their contributions:
     2. General support (students who helped you with debugging, conceptual understanding, or the like) and their contributions:
 2. Did you use LLMs or other AI models to generate text or code for this project? If so, which tools did you use and how did you use them? Remember in this class you *are* allowed (even encouraged) to use these tools for help with coding, but not for writing text. This can be very brief, just one or two sentences is fine unless you have more you'd like to add.
     1. answer here 
+    Yes, I asked ChatGPT about ways to realize certain functions, but I just asked for the general function. For example, I want to know how to identify values that are in 'midwest' and not in 'clean.midwest' and vise versa, and GPT said I can use union + setdiff. I then figured out how to do this with my dataset.
 3. For off-the-menu projects only, did you complete the project as proposed? If not, what changed?
     1. answer here or n/a
+    n/a
 
 ## Assessed Objectives
 
