@@ -31,9 +31,9 @@ URL or instructions to access additional materials, if needed:
     1.  Direct collaborators (students who will be turning in a version of the same project) and their contributions:
     2.  General support (students who helped you with debugging, conceptual understanding, or the like) and their contributions:
 2.  Did you use LLMs or other AI models to generate text or code for this project? If so, which tools did you use and how did you use them? Remember in this class you *are* allowed (even encouraged) to use these tools for help with coding, but not for writing text. This can be very brief, just one or two sentences is fine unless you have more you'd like to add.
-    1.  answer here Yes, I asked ChatGPT about ways to realize certain functions, but I just asked for the general function. For example, I want to know how to identify values that are in 'midwest' and not in 'clean.midwest' and vise versa, and GPT said I can use union + setdiff. I then figured out how to do this with my dataset.
+    1.  answer here: Yes, I asked ChatGPT about ways to realize certain functions, but I just asked for the general function. For example, I want to know how to identify values that are in 'midwest' and not in 'clean.midwest' and vise versa, and GPT said I can use union + setdiff. I then figured out how to do this with my dataset.
 3.  For off-the-menu projects only, did you complete the project as proposed? If not, what changed?
-    1.  answer here or n/a n/a
+    1.  answer here or n/a: n/a
 
 ## Assessed Objectives
 
@@ -53,8 +53,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Does not have duplicate/redundant elements
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -99,8 +99,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses more than one function to install/load/require packages
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -110,8 +110,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses multiple operators in data transformation pipelines and/or inline R code
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -123,8 +123,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Functions are well-documented with comments
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -147,8 +147,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Writes out intermediate and/or final datasets in code chunks or sourced scripts
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -160,8 +160,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Combines `dplyr` and `tidyr` functions in a data transformation pipeline
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -171,8 +171,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses `stringr` functions in a data transformation pipeline
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
@@ -451,10 +451,10 @@ You are not required to demonstrate these objectives in your independent project
 
 ### Troubleshooting, debugging, and best practices
 
-1.  use frequent, informative comments in code and markdown
-2.  find and understand documentation for R packages and functions
-3.  follow a debugging workflow with independent and collaborative strategies
-4.  parse and investigate error messages
+1.  use frequent, informative comments in code and markdown (YES)
+2.  find and understand documentation for R packages and functions (YES, LLM and Google)
+3.  follow a debugging workflow with independent and collaborative strategies (YES)
+4.  parse and investigate error messages (YES)
 5.  follow a coding style guide
 
 ### RStudio & R
@@ -468,9 +468,9 @@ You are not required to demonstrate these objectives in your independent project
 ### Conceptual skills
 
 11. explain and apply the “grammar of graphics”
-12. name and differentiate R data types
+12. name and differentiate R data types (YES)
 13. name and differentiate R objects
-14. define “tidy” data and explain its advantages and disadvantages
+14. define “tidy” data and explain its advantages and disadvantages (YES)
 15. recognize and interpret common data visualizations
 16. determine most appropriate visualizations and analyses for specific research questions and data
 

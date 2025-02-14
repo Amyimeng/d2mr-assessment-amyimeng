@@ -12,12 +12,12 @@ In this Level 2 Cleaning assignment, you will work with a more complex dataset a
 
 # Instructions
 
-1. If you have not already done so, pull the latest changes from the `d2mr-assessment` repository to ensure you have the most up-to-date version of the assignment files. Confirm you are working in your fork of the repository.
-2. Open `cleaning-level-2.qmd` in RStudio and follow the instructions in the Setup section below to load and inspect the (original) `midwest` dataset. 
-    - **Important:** Unlike Level 1, you will not be provided with a goal dataset to match. Instead, you will evaluate what cleaning tasks are necessary or useful *in principle*. You can reference the original `midwest` dataset, but ultimately you will need to decide what the "clean" version of the dataset should look like.
-3. Follow the guideline to identify and perform cleaning tasks on the `messy-midwest.csv` dataset.
-4. At some points in this document you may come across questions or non-coding exercises. Answer these questions in the text of this .qmd document, immediately below the question.
-5. *Optional:* Continue to follow the instructions in the assignment script to clean the dataset above and beyond matching the original. 
+1.  If you have not already done so, pull the latest changes from the `d2mr-assessment` repository to ensure you have the most up-to-date version of the assignment files. Confirm you are working in your fork of the repository.
+2.  Open `cleaning-level-2.qmd` in RStudio and follow the instructions in the Setup section below to load and inspect the (original) `midwest` dataset.
+    -   **Important:** Unlike Level 1, you will not be provided with a goal dataset to match. Instead, you will evaluate what cleaning tasks are necessary or useful *in principle*. You can reference the original `midwest` dataset, but ultimately you will need to decide what the "clean" version of the dataset should look like.
+3.  Follow the guideline to identify and perform cleaning tasks on the `messy-midwest.csv` dataset.
+4.  At some points in this document you may come across questions or non-coding exercises. Answer these questions in the text of this .qmd document, immediately below the question.
+5.  *Optional:* Continue to follow the instructions in the assignment script to clean the dataset above and beyond matching the original.
 
 # Setup
 
@@ -30,7 +30,6 @@ Run these chunks as written. Do not make changes to code except where noted if n
 library(tidyverse)
 set.seed(1234)
 ```
-
 
 ## Read in and inspect messy data
 
@@ -85,42 +84,47 @@ QUESTIONS:
 Q1. What are the differences between the messy dataset and the original midwest dataset?
 
 <!-- answer below -->
+
 There are a number of differences:
 
-1. The variable in the messy dataset are not properly named and their order is not neat. Specifically, the changes need to be made are:  
-  a)'0' needs to be replaced by 'o'
-  b) all lower case except "PID"
-  c) the variables starting with 'Popupation xxx' needs to be changed to 'popxxx'
-  d) Each broader category's variables needs to stay together (i.e., population, ethinicity percentage, educational level percentage, poverty percentage) 
-2. PID in the orignial dataset is in order, but in the messy dataset it is in random order.
-3. In 'county',all upper case. Also, '1'needs to be replaced by 'l', '0' to be replaced by 'o' and '3' to be replaced by 'e'.
-4. In 'state',only keep the first two letter of the state's name, also it needs to be in upper case.
-5. Some values in 'Percentage Asian' and 'perother' are not avaialab (i.e., noted as 'NA'), however in the original dataset they are available.
-6. 27 columns in the original dataset, but there are 28 in the messy one.
+1.  The variable in the messy dataset are not properly named and their order is not neat. Specifically, the changes need to be made are:\
+    a)'0' needs to be replaced by 'o'
+
+<!-- -->
+
+b)  all lower case except "PID"
+c)  the variables starting with 'Popupation xxx' needs to be changed to 'popxxx'
+d)  Each broader category's variables needs to stay together (i.e., population, ethinicity percentage, educational level percentage, poverty percentage)
+
+<!-- -->
+
+2.  PID in the orignial dataset is in order, but in the messy dataset it is in random order.
+3.  In 'county',all upper case. Also, '1'needs to be replaced by 'l', '0' to be replaced by 'o' and '3' to be replaced by 'e'.
+4.  In 'state',only keep the first two letter of the state's name, also it needs to be in upper case.
+5.  Some values in 'Percentage Asian' and 'perother' are not avaialab (i.e., noted as 'NA'), however in the original dataset they are available.
+6.  27 columns in the original dataset, but there are 28 in the messy one.
 
 Q2. What are the biggest issues you need to address in cleaning?
 
 <!-- answer below -->
-1. Why are some data not available in the messy dataset but they become avaiable in the original one?
-2. Why are there 28 columns in the original dataset, but only 27 in the messy dataset?
-3. Matching variable names can take a lot of work.
 
+1.  Why are some data not available in the messy dataset but they become avaiable in the original one?
+2.  Why are there 28 columns in the original dataset, but only 27 in the messy dataset?
+3.  Matching variable names can take a lot of work.
 
 Q3. Are there any differences between the messy dataset and the original dataset that you do not need or want to address in cleaning? If so, why (not)?
 
 <!-- answer below -->
-1. In the original dataset, there is a variable called "*per*college"---- I would rather change it to per*c*college, just to keep it consistent with other percentage variable names (i.e., 'perc' as an abbrevation for 'percentage' instead of 'per' )
-2. I probably would not change the 'NA's in the messy dataset to match the original dataset. The only way to do this that I can think of is to replace the 'NA's with the values from the original dataset, but in reality I would not just replace a value with another one. Instead, I would find out why there are dismatches first.
-3. Regarding the one extra column in the messy dataset, I would not delete it. In stead, I would move it to the very end so that it does not interfere with the all.equal() function.
 
-
+1.  In the original dataset, there is a variable called "*per*college"---- I would rather change it to per*c*college, just to keep it consistent with other percentage variable names (i.e., 'perc' as an abbrevation for 'percentage' instead of 'per' )
+2.  I probably would not change the 'NA's in the messy dataset to match the original dataset. The only way to do this that I can think of is to replace the 'NA's with the values from the original dataset, but in reality I would not just replace a value with another one. Instead, I would find out why there are dismatches first.
+3.  Regarding the one extra column in the messy dataset, I would not delete it. In stead, I would move it to the very end so that it does not interfere with the all.equal() function.
 
 Q4. Are there additional cleaning tasks you would like to perform beyond matching the original dataset? If so, what are they and why do you think they are important?
 
 <!-- answer below -->
-If this is my dataset, the first thing I will do is to screen out any data that is inapproapriate. For example, are the percentages less than 100?
-Other things that I would like to do is to keep 2 decimal places for all the numbers---- it is just easlier to observe whether there is anything wrong this way.
-I would also change percentages to 0.something instead of a number out of 100. This way when I need to perform some culculations I do not need to divide the numbers by 100. 
+
+If this is my dataset, the first thing I will do is to screen out any data that is inapproapriate. For example, are the percentages less than 100? Other things that I would like to do is to keep 2 decimal places for all the numbers---- it is just easlier to observe whether there is anything wrong this way. I would also change percentages to 0.something instead of a number out of 100. This way when I need to perform some culculations I do not need to divide the numbers by 100.
 
 # Cleaning
 
@@ -130,9 +134,7 @@ If you're not sure where to start, you can organize your cleaning into the follo
 
 You can additionally/alternatively construct your cleaning in a single pipeline in the last chunk.
 
-
 ## All cleaning in a single pipeline
-
 
 ```{r}
 
@@ -245,53 +247,45 @@ all.equal(clean.midwest,midwest)
 
 ```
 
-
-
 # Reflection
 
 QUESTIONS:
 
-1. Is your dataset identical to `midwest`? If not, what is different? (Remember the functions `all.equal()` and `diff_data()` can help here.)
-
-<!-- answer below -->
-No. There are two differences.
-First, midwest$county[101] is in lower case (i.e., Winnebago), which is inconsistent from the rest of the data, so in clean.midwest$county[101] I just keep this value in upper case.
-Second, there is an extra column (population per square mile) in clean.midwest, which I figure might be useful, so I keep it at the very end so that it would not interfere with the comparison of the rest columns. 
-
-
-2. Did you make any choices to clean the data that resulted in the dataset not matching the original? Why did you make those choices?
-
-<!-- answer below -->
-Actually I didn't do anything that resulted int the dataset not matching the original, except for clean.midwest$county[101] which I kept at upper case to mathch with the overall format.
-
-3. Were there any cleaning steps -- whether necessary to recreate the original df or just because you wanted to do them -- that you weren't able to implement? If so, what were they and what more would you need to do/know to implement them? 
+1.  Is your dataset identical to `midwest`? If not, what is different? (Remember the functions `all.equal()` and `diff_data()` can help here.)
 
 <!-- answer below -->
 
+No. There are two differences. First, midwest$county[101] is in lower case (i.e., Winnebago), which is inconsistent from the rest of the data, so in clean.midwest$county\[101\] I just keep this value in upper case. Second, there is an extra column (population per square mile) in clean.midwest, which I figure might be useful, so I keep it at the very end so that it would not interfere with the comparison of the rest columns.
+
+2.  Did you make any choices to clean the data that resulted in the dataset not matching the original? Why did you make those choices?
+
+<!-- answer below -->
+
+Actually I didn't do anything that resulted int the dataset not matching the original, except for clean.midwest\$county\[101\] which I kept at upper case to mathch with the overall format.
+
+3.  Were there any cleaning steps -- whether necessary to recreate the original df or just because you wanted to do them -- that you weren't able to implement? If so, what were they and what more would you need to do/know to implement them?
+
+<!-- answer below -->
 
 # Unguided cleaning and transformation
 
 *Optional:* If you have the time and interest, continue transforming this dataset as you please. Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. To get you started, consider things like:
 
-1. **Exploratory Data Analysis:** Use the cleaned dataset to explore relationships between variables, create visualizations, and generate insights.
-2. **Data Transformation:** Create new variables, aggregate data, or reshape the dataset to prepare it for analysis.
-3. **Split, Merge, and Reshape:** Split the dataset into multiple datasets or merge it with other datasets using `join` functions to create a new dataset. Use `pivot_longer()` and `pivot_wider()` to reshape the data.
-4. **Informativity:** Consider the midwest data and its documentation. Clean/transform the dataframe into a format that is more informative, transparent, or easier to work with. For example, improve column naming conventions, create new (useful) variables, reduce redundancy, or eliminate variables that are not useful or documented.
-
+1.  **Exploratory Data Analysis:** Use the cleaned dataset to explore relationships between variables, create visualizations, and generate insights.
+2.  **Data Transformation:** Create new variables, aggregate data, or reshape the dataset to prepare it for analysis.
+3.  **Split, Merge, and Reshape:** Split the dataset into multiple datasets or merge it with other datasets using `join` functions to create a new dataset. Use `pivot_longer()` and `pivot_wider()` to reshape the data.
+4.  **Informativity:** Consider the midwest data and its documentation. Clean/transform the dataframe into a format that is more informative, transparent, or easier to work with. For example, improve column naming conventions, create new (useful) variables, reduce redundancy, or eliminate variables that are not useful or documented.
 
 # Submission & Assessment
 
 To submit:
 
-1. Add an `assessment.md` file to this mini-project's directory:
-    1. Check off all objectives you believe you have demonstrated
-    2. Indicate which unique objectives you are meeting for the first time (if any)
-    3. Complete any relevant open-ended items
-2. Push your changes to your centralized assignment repository on GitHub. 
-3. Confirm that Dr. Dowling and your section TA are added as collaborators to your repository.
-4. Submit your work in your next open mini-project assignment by including the following information in the text box:
-    1. The title of the assignment: "Level 2 Data Cleaning: Clean the midwest Dataset"
-    2. A link to the **directory** for this assignment in your centralized assignment repo
-
-
-
+1.  Add an `assessment.md` file to this mini-project's directory:
+    1.  Check off all objectives you believe you have demonstrated
+    2.  Indicate which unique objectives you are meeting for the first time (if any)
+    3.  Complete any relevant open-ended items
+2.  Push your changes to your centralized assignment repository on GitHub.
+3.  Confirm that Dr. Dowling and your section TA are added as collaborators to your repository.
+4.  Submit your work in your next open mini-project assignment by including the following information in the text box:
+    1.  The title of the assignment: "Level 2 Data Cleaning: Clean the midwest Dataset"
+    2.  A link to the **directory** for this assignment in your centralized assignment repo
