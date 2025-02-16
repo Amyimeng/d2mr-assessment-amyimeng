@@ -272,6 +272,33 @@ Actually I didn't do anything that resulted int the dataset not matching the ori
 *Optional:* If you have the time and interest, continue transforming this dataset as you please. Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. To get you started, consider things like:
 
 1.  **Exploratory Data Analysis:** Use the cleaned dataset to explore relationships between variables, create visualizations, and generate insights.
+```{r}
+# Create a summary for the dataset 
+summary(clean.midwest$poptotal) #numeric variable
+clean.midwest$county[which(clean.midwest$poptotal == 1701)]
+clean.midwest$county[which(clean.midwest$poptotal == 5105067)]
+
+# The total polulation in midwest counties ranged from 1701 people in Keweenaw to 5105067 people in Cook, with the average being 96130 and the median being 35324.
+
+# Let's then create a population total for each state and order them in a descending manner.
+state.population <- clean.midwest %>%
+  group_by(state) %>%
+  summarise(total_population = sum(poptotal))%>%
+  arrange(desc(total_population))
+print(state.population)
+
+#We can also create a summary for the frequncy of category, grouped by states.
+
+state.category <- clean.midwest %>%
+  group_by(state, category) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  arrange(state, desc(count))
+  
+print(state.category)
+
+# We can see that all midwest states have the most AAR, except for Ohio, which has the mist AAU. Since the annotation for 'category' in the menu is 'Miscellaneous', we need to figure out what it means before further interpreting the result. 
+```
+
 2.  **Data Transformation:** Create new variables, aggregate data, or reshape the dataset to prepare it for analysis.
 3.  **Split, Merge, and Reshape:** Split the dataset into multiple datasets or merge it with other datasets using `join` functions to create a new dataset. Use `pivot_longer()` and `pivot_wider()` to reshape the data.
 4.  **Informativity:** Consider the midwest data and its documentation. Clean/transform the dataframe into a format that is more informative, transparent, or easier to work with. For example, improve column naming conventions, create new (useful) variables, reduce redundancy, or eliminate variables that are not useful or documented.
