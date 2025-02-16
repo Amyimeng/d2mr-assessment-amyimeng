@@ -19,9 +19,9 @@ Section: 1
 
 Mini-project title: "Level 2 Data Cleaning: Clean the midwest Dataset"
 
-Submission date:
+Submission date: 02.16.2025
 
-Project GitHub subdirectory URL:
+Project GitHub subdirectory URL: https://github.com/Amyimeng/d2mr-assessment-amyimeng/tree/main/01_data-cleaning/02_cleaning-level-2
 
 URL or instructions to access additional materials, if needed:
 
