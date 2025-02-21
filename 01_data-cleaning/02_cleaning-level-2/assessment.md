@@ -53,10 +53,10 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Does not have duplicate/redundant elements
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: Check one each time, either `Objective attempt` or `Unique objective attempt`. You need to demonstrate `GitHub and R Studio` related objectives by building your own repository.
 
 2.  Maintain an informative and up-to-date README.md
 
@@ -99,9 +99,9 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses more than one function to install/load/require packages
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 6.  Use arithmetic, comparison, and logical operators
@@ -110,9 +110,9 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses multiple operators in data transformation pipelines and/or inline R code
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 7.  Parse and define functions and arguments
@@ -123,10 +123,10 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Functions are well-documented with comments
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: The script does not seem to include any user-defined functions, which is in this format: `function_name <- function(arguments) {}`. Feel free to reach out if you did have one
 
 8.  Parse and write conditional statements and/or loops
 
@@ -147,10 +147,10 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Writes out intermediate and/or final datasets in code chunks or sourced scripts
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
-        -   Grader comments:
+        -   [x] Objective met
+        -   Grader comments: Note that this expects you `Write out intermediate and/or final datasets in code chunks or sourced scripts`, say, using `write_csv· function. I'm leaving this as met for you, but make sure you understand this practice.
 
 10. Use `dplyr` and `tidyr` functions to transform data
 
@@ -160,9 +160,9 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Combines `dplyr` and `tidyr` functions in a data transformation pipeline
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 11. Use `stringr` functions to work with string variables
@@ -171,9 +171,9 @@ Below each learning objective is a list of general expectations for meeting that
 
     2.  Uses `stringr` functions in a data transformation pipeline
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 12. Use `forcats` functions to work with factor variables
@@ -245,9 +245,9 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Presents results in narrative text, table, or plot
 
-        -   [x] Objective attempt
+        -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 18. Perform simple hypothesis testing analyses for multiple data types
@@ -502,11 +502,11 @@ Thoughtful reflections may earn engagement points.
 
 ## Grader feedback
 
--   Grader:
--   Date:
--   Points toward unique objectives (up to 20):
+-   Grader: Mian
+-   Date: Feb 21, 2025
+-   Points toward unique objectives (up to 20): 6
 -   Additional points (up to 20):
--   TA provisional engagement points (up to 10):
+-   TA provisional engagement points (up to 10): 4
 -   Final approved engagement points (up to 10):
 -   Total points (up to 50):
 
@@ -515,3 +515,5 @@ Engagement points are awarded for going above and beyond the expectations of the
 TAs may recommend engagement points provisionally, but the instructor will make the final decision on engagement points.
 
 Additional comments:
+
+Mian: Great job. Keep up with the good work.
