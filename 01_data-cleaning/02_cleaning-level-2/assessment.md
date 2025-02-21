@@ -245,8 +245,8 @@ Below each learning objective is a list of general expectations for meeting that
 
     3.  Presents results in narrative text, table, or plot
 
-        -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
