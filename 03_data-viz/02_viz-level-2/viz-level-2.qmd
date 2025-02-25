@@ -51,7 +51,8 @@ Choose from one of three options to read in and inspect the starwars data.
 
 
 ## Option 2: Load the partially wrangled starwars dataset
-#sw.wrangled <- read_csv("sw-wrangled-partial.csv") # You may need to change this relative path
+sw.wrangled <- read_csv("sw-wrangled-partial.csv") 
+# You may need to change this relative path
 
 
 ## Option 3: Load the wrangled starwars dataset

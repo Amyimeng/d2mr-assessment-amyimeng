@@ -2,7 +2,6 @@
 title: "Level 1 Data Wrangling: Recreate a starwars Dataset"
 ---
 
-
 # Objective
 
 The objective of this assignment is to practice transforming dataset using (primarily) tidyverse functions. You will use skills like renaming and reordering columns, sorting rows, changing data types, mutating data, and using the stringr and forcats packages.
@@ -13,12 +12,17 @@ You may additionally or alternatively complete the [Level 2 wrangling assignment
 
 # Setup
 
-## Loading libraries and set seed
+## Loading libraries and set seed (code chunks for setting up a quarto document)
 
 ```{r}
 #| label: setup
+#| include: false
+#| echo: true
+#| message: false
+#| warning: false
 library(tidyverse)
 set.seed(1234)
+options(stringsAsFactors = FALSE)
 ```
 
 ## Load your goal tibble to replicate
@@ -29,7 +33,7 @@ Run this chunk to see what your end product should look like:
 
 #| label: load-goal-tibble
 
-sw.wrangled.goal <- read_csv("assessment/recreate-level-1/sw-wrangled.csv") %>% 
+sw.wrangled.goal <- read_csv("sw-wrangled.csv") %>% 
    mutate(across(c(hair, gender, species, homeworld), factor)) # this is a quick-and-dirty fix to account for odd importing behavior
 
 # View in console
@@ -81,7 +85,7 @@ for (var in factor_vars) {
 
 # View the levels of each factor variable
 factor_levels
-
+?levels
 ```
 
 ## Use the built-in starwars dataset to replicate the tibble above in a tbl called sw.wrangled
@@ -92,13 +96,12 @@ Start by saving the `starwars` dataset to a new tbl called `sw.wrangled`. You wi
 #| label: load-starting-data
 
 # Assign the starwars dataset to a new tbl called sw.wrangled
-
+sw.wrangled <- starwars
 ```
-
 
 QUESTION:
 
-1. What is the point of duplicating the `starwars` dataset to a new tbl called `sw.wrangled` rather than working directly with the `starwars` dataset?
+1.  What is the point of duplicating the `starwars` dataset to a new tbl called `sw.wrangled` rather than working directly with the `starwars` dataset?
 
 <!-- answer below -->
 
@@ -112,14 +115,14 @@ If you get stuck, use comments to "hold space" for where you know code needs to 
 
 ## Identify differences
 
-Before you start making changes to the `sw.wrangled` dataset, identify the differences between the `sw.wrangled` and `sw.wrangled.goal` datasets. There are multiple ways to do this, but I suggest using the `all.equal()` function. 
+Before you start making changes to the `sw.wrangled` dataset, identify the differences between the `sw.wrangled` and `sw.wrangled.goal` datasets. There are multiple ways to do this, but I suggest using the `all.equal()` function.
 
 ```{r}
 
 #| label: identify-differences
 
 # Use the all.equal() function to compare the two datasets
-
+all.equal(sw.wrangled, sw.wrangled.goal)
 
 # If the all.equal() function returns a message, read it carefully to understand the differences between the two datasets.
 
@@ -129,23 +132,28 @@ PLAN: Create a plan to address the differences between the `sw.wrangled` and `sw
 
 ## Recreate goal data
 
-In this assignment, you'll make the necessary changes in individual steps in their own chunks, iteratively updating and saving `sw.wrangled`. In a real-world scenario, you would probably combine some or all of these steps into a single chunk. You'll have a chance to do that later. 
+In this assignment, you'll make the necessary changes in individual steps in their own chunks, iteratively updating and saving `sw.wrangled`. In a real-world scenario, you would probably combine some or all of these steps into a single chunk. You'll have a chance to do that later.
 
 **As you work,** add unique, informative chunk labels (using comment syntax: `#|: chunk-label`) and comments to explain your thought process and the steps you are taking.
 
 ```{r}
 
-#| label: your-unique-informative-label-goes-here
+#| label: Step-by-step data wrangling
 
 # Select only needed columns & rename height (to height_cm) and hair_color (to hair)
 
+sw.wrangled <- sw.wrangled %>%
+  select(name, height, mass, hair_color, gender, species, homeworld) %>%
+  rename(height_cm = height,
+         hair = hair_color)
 
 ```
 
 ```{r}
 
 # Filter out any rows where height data is missing
-
+sw.wrangled <- sw.wrangled %>%
+  filter(!is.na(height_cm))
 
 ```
 
@@ -153,6 +161,9 @@ In this assignment, you'll make the necessary changes in individual steps in the
 
 # Break names into two columns (first_name, last_name); use first space " " as delimiter
 
+sw.wrangled <- sw.wrangled %>%
+  separate(name, into = c("first_name", "last_name"), sep = " ", extra = "merge")
+  
 
 
 ```
@@ -160,19 +171,34 @@ In this assignment, you'll make the necessary changes in individual steps in the
 ```{r}
 # Change categorical variables (but currently character) to factors
 
+sw.wrangled.goal <- sw.wrangled.goal %>%
+  mutate(across(where(is.character), as.factor))
+
+#Another way is to use for loop which is much more complicated:
+for (col in names(sw.wrangled)) {
+  col <- as.character(col)
+  if (is.character(sw.wrangled[[col]])) {
+    sw.wrangled[[col]] <-as.factor(sw.wrangled[[col]])
+    }
+  }
+
+
 
 ```
 
 ```{r}
 
 # Create a second height column by converting cm to inches
-
+sw.wrangled <- sw.wrangled %>%
+  mutate(height_in = height_cm*0.39370)
 
 ```
 
 ```{r}
 # where there is no value in hair, use value "bald"
-
+sw.wrangled <- sw.wrangled %>%
+  mutate(hair = fct_explicit_na(hair, na_level = "bald")) 
+#function in "forcats", use fct_explicit_na to create a new level for "bald" only, to facilitate its replacement with "NA"
 
 
 ```
@@ -180,6 +206,8 @@ In this assignment, you'll make the necessary changes in individual steps in the
 ```{r}
 
 # create a logical variable that returns true if "brown" is anywhere in the string value for hair 
+sw.wrangled <- sw.wrangled %>%
+mutate(brown_hair = str_detect(tolower(hair), "brown"))
 
 
 
@@ -188,7 +216,11 @@ In this assignment, you'll make the necessary changes in individual steps in the
 ```{r}
 
 # create an initials column by concatenating the first characters of the first and last name
-
+sw.wrangled <- sw.wrangled %>%
+  mutate(initials = if_else(
+    is.na(last_name),
+    str_c(str_sub(first_name,1,1), "NA"),
+    str_c(str_sub(first_name,1,1), str_sub(last_name,1,1),sep = "") ))
 
 
 ```
@@ -196,7 +228,9 @@ In this assignment, you'll make the necessary changes in individual steps in the
 ```{r}
 
 # Rearrange height_in and initials columns
-
+sw.wrangled <- sw.wrangled %>%
+  relocate(height_in, .before = height_cm) %>%
+  relocate(initials, .after = last_name)
 
 
 ```
@@ -205,14 +239,14 @@ In this assignment, you'll make the necessary changes in individual steps in the
 
 # Sort by last_name and then (when last_name matches) by first_name 
 
-
+sw.wrangled <- sw.wrangled %>%
+  arrange(last_name, first_name)
 
 ```
 
-
 ## OPTIONAL: Combine steps into a single pipeline
 
-Combine all the steps above into a single pipeline. 
+Combine all the steps above into a single pipeline.
 
 QUESTION: What are the advantages and disadvantages of combining all the steps into a single pipeline in a single chunk?
 
@@ -222,7 +256,49 @@ QUESTION: What are the advantages and disadvantages of combining all the steps i
 
 ```{r}
 #| label: single-pipe
+sw.wrangled <- starwars %>%
+  select(name, height, mass, hair_color, gender, species, homeworld) %>%
+  rename(height_cm = height,
+         hair = hair_color) %>%
+  filter(!is.na(height_cm)) %>%
+  separate(name, into = c("first_name", "last_name"), 
+           sep = " ", extra = "merge") %>%
+  mutate(across(where(is.character), as.factor)) %>%
+  mutate(height_in = height_cm*0.39370) %>%
+  mutate(hair = fct_explicit_na(hair, na_level = "bald")) %>%
+  mutate(brown_hair = str_detect(tolower(hair), "brown")) %>%
+  mutate(initials = if_else(
+    is.na(last_name),
+    str_c(str_sub(first_name,1,1), "NA"),
+    str_c(str_sub(first_name,1,1), str_sub(last_name,1,1),sep = "") )) %>%
+  relocate(height_in, .before = height_cm) %>%
+  relocate(initials, .after = last_name) %>%
+  arrange(last_name, first_name)
+  
+```
 
+```{r}
+#| label: Combine multiple mutations
+
+sw.wrangled <- starwars %>%
+  select(name, height, mass, hair_color, gender, species, homeworld) %>%
+  rename(height_cm = height, hair = hair_color) %>%
+  filter(!is.na(height_cm)) %>%
+  separate(name, into = c("first_name", "last_name"), sep = " ", extra = "merge") %>%
+  mutate(
+    across(where(is.character), as.factor),
+    height_in = height_cm * 0.39370,
+    hair = fct_explicit_na(hair, na_level = "bald"),
+    brown_hair = str_detect(tolower(hair), "brown"),
+    initials = if_else(
+      is.na(last_name),
+      str_c(str_sub(first_name, 1, 1), "NA"),
+      str_c(str_sub(first_name, 1, 1), str_sub(last_name, 1, 1), sep = "")
+    )
+  ) %>%
+  relocate(height_in, .before = height_cm) %>%
+  relocate(initials, .after = last_name) %>%
+  arrange(last_name, first_name)
 
 ```
 
@@ -234,7 +310,18 @@ Check that your `sw.wrangled` dataframe is identical to the goal dataframe using
 #| label: checkpoint
 
 # Use all.equal()
+all.equal(sw.wrangled, sw.wrangled.goal)
 
+# Turns out that there are still many dismatches:
+
+sw.wrangled <-sw.wrangled %>%
+  mutate(first_name = as.factor(first_name), 
+        last_name = as.factor(last_name),
+        species = as.character(species)) %>%
+  mutate(gender = str_sub(gender, 1,1),
+         species = str_to_upper(species))
+
+all.equal(sw.wrangled, sw.wrangled.goal)
 
 ```
 
@@ -244,19 +331,60 @@ QUESTION: Are there any issues you cannot resolve? If so, list out the issues an
 
 <!-- answer below -->
 
+Yes, there are several mismatches that I am not planning to change due to the following reasons:\
+
+1.  Regarding the differences in data types and levels, the current version of sw.wrangled data frame works well in my personal opinion. In contrast, the 'goal' version had variable types that do not make sense to me. For example, "gender" and "species" as "numeric", which is weird in my opinion so I am not going to try to match with it.
+2.  Regarding the differences in "initials", the current version of sw.wrangled is ordered first by last names then by first names, however the "goal" version has "the Lesser" ranked after "Windu" which does not make sense to me. Therefore I am not going to try to match with the "goal" version.
+3.  Regarding the differences in mean height, the two data sets actually have different height values. For example, in sw.wrangled, Pedme (roll 2)'s height is 165 cm, where as in sw.wrangled.goal, Pedme's height is 185 cm. Since I do not know which version is correct, I am not going to change these mismatches.
+
+```{r}
+#| label: Final version of code (all-in-one chunk)
+
+sw.wrangled <- starwars %>%
+  select(name, height, mass, hair_color, gender, species, homeworld) %>%
+  rename(height_cm = height, hair = hair_color) %>%
+  filter(!is.na(height_cm)) %>%
+  separate(name, into = c("first_name", "last_name"), sep = " ", extra = "merge") %>%
+  mutate(
+    across(where(is.character), as.factor),
+    height_in = height_cm * 0.39370,
+    hair = fct_explicit_na(hair, na_level = "bald"),
+    brown_hair = str_detect(tolower(hair), "brown"),
+    gender = str_sub(gender, 1,1),
+    species = str_to_upper(species),
+    initials = if_else(
+      is.na(last_name),
+      str_c(str_sub(first_name, 1, 1), "NA"),
+      str_c(str_sub(first_name, 1, 1), str_sub(last_name, 1, 1), sep = "")
+    )
+  ) %>%
+  relocate(height_in, .before = height_cm) %>%
+  relocate(initials, .after = last_name) %>%
+  arrange(last_name, first_name)
+
+```
+
 # OPTIONAL: Unguided cleaning and transformation
 
-*Optional:* If you have the time and interest, continue transforming this dataset as you please in a new dataframe called `sw.optional`. **DO NOT SAVE OVER YOUR `sw.wrangled` DATAFRAME.** Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. You can do this in addition to or instead of the additional cleaning tasks above. 
+*Optional:* If you have the time and interest, continue transforming this dataset as you please in a new dataframe called `sw.optional`. **DO NOT SAVE OVER YOUR `sw.wrangled` DATAFRAME.** Create new columns based on the existing ones, reformat strings, try your hand at a regex replacement, summarize by groups (factor levels), visualize a simple relationship, or anything else you can think of. You can do this in addition to or instead of the additional cleaning tasks above.
 
-You can do these transformations one pipe/chunk or several. Either way, include appropriate chunk labels as well as comments to explain your thought process and the steps you are taking. 
-
+You can do these transformations one pipe/chunk or several. Either way, include appropriate chunk labels as well as comments to explain your thought process and the steps you are taking.
 
 ```{r}
 
 #| label: rename-me-to-something-sensible
 
 sw.optional <- sw.wrangled
-  # your code here
+
+```
+
+#### I want to combine some *low-frequency species* in to a category called "other".
+
+
+```{r}
+sw.optional <- sw.optional %>%
+  mutate(species = fct_lump(species, n = 3)) %>%
+
 
 ```
 
@@ -274,19 +402,18 @@ If you would like to export your dataframe(s) to a .csv file, you can use the `w
 
 ```
 
-
 # Submission
 
-Before submitting, double check that your `sw.wrangled` dataframe matches the `sw.wrangled.goal` dataframe. If you optionally chose to continue transforming, that should be a *different dataframe.* 
+Before submitting, double check that your `sw.wrangled` dataframe matches the `sw.wrangled.goal` dataframe. If you optionally chose to continue transforming, that should be a *different dataframe.*
 
 To submit:
 
-1. Add & modify the `assessment.md` in this mini-project's directory:
-    1. Check off all objectives you believe you have demonstrated
-    2. Indicate which objectives you are meeting for the first time (if any)
-    3. Complete any relevant open-ended items
-2. Push your changes to your centralized assignment repository on GitHub. 
-3. Confirm that Dr. Dowling and your section TA are added as collaborators to your repository.
-4. Submit your work in your next open mini-project assignment by including the following information in the text box:
-    1. The title of the assignment: "Level 1 Data Wrangling: Recreate a starwars Dataset"
-    2. A link to the **directory** for this assignment in your centralized assignment repo
+1.  Add & modify the `assessment.md` in this mini-project's directory:
+    1.  Check off all objectives you believe you have demonstrated
+    2.  Indicate which objectives you are meeting for the first time (if any)
+    3.  Complete any relevant open-ended items
+2.  Push your changes to your centralized assignment repository on GitHub.
+3.  Confirm that Dr. Dowling and your section TA are added as collaborators to your repository.
+4.  Submit your work in your next open mini-project assignment by including the following information in the text box:
+    1.  The title of the assignment: "Level 1 Data Wrangling: Recreate a starwars Dataset"
+    2.  A link to the **directory** for this assignment in your centralized assignment repo
