@@ -15,16 +15,16 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## R programming
 
-5.  [ ] Find, install, require, and load R packages
-6.  [ ] Use arithmetic, comparison, and logical operators
+5.  [x] Find, install, require, and load R packages
+6.  [x] Use arithmetic, comparison, and logical operators
 7.  [ ] Parse and define functions and arguments
 8.  [ ] Parse and write conditional statements and/or loops
 
 ## Tidyverse
 
-9.  [ ] Use `readr` functions to read in and write out data
-10. [ ] Use `dplyr` and `tidyr` functions to transform data
-11. [ ] Use `stringr` functions to work with string variables
+9.  [x] Use `readr` functions to read in and write out data
+10. [x] Use `dplyr` and `tidyr` functions to transform data
+11. [x] Use `stringr` functions to work with string variables
 12. [ ] Use `forcats` functions to work with factor variables
 
 ## Data visualization with ggplot2
@@ -36,7 +36,7 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## Data analysis
 
-17. [ ] Perform simple descriptive analyses with multiple data types
+17. [x] Perform simple descriptive analyses with multiple data types
 18. [ ] Perform simple hypothesis testing analyses for multiple data types
 19. [ ] Present and interpret statistics in manuscript narrative
 
