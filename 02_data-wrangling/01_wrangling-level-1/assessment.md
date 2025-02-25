@@ -21,9 +21,9 @@ Mini-project title: "Level 1 Data Wrangling: Recreate a starwars Dataset"
 
 Submission date:
 
-Project GitHub subdirectory URL:
+Project GitHub subdirectory URL: d2mr-assessment-amyimeng/02_data-wrangling/01_wrangling-level-1 at main · Amyimeng/d2mr-assessment-amyimeng
 
-URL or instructions to access additional materials, if needed:
+URL or instructions to access additional materials, if needed: Please also read the README.md file :)
 
 ## Additional information
 
