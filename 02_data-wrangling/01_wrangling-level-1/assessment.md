@@ -19,7 +19,7 @@ Section: 1
 
 Mini-project title: "Level 1 Data Wrangling: Recreate a starwars Dataset"
 
-Submission date:
+Submission date: 02.24.2025
 
 Project GitHub subdirectory URL: d2mr-assessment-amyimeng/02_data-wrangling/01_wrangling-level-1 at main · Amyimeng/d2mr-assessment-amyimeng
 
@@ -417,7 +417,7 @@ Below each learning objective is a list of general expectations for meeting that
 
 29. Run inline R functions to render dynamic data-dependent text \*？Uses inline R functions to render at least 3 unique data-dependent text outputs (e.g., performs rounding, calculates means, subtracts one list length from another, etc. -- inline rather than in a code chunk)
 
-    1.  [ ] 
+    1.  [ ]
 
         -   Objective attempt
         -   [ ] Unique objective attempt
