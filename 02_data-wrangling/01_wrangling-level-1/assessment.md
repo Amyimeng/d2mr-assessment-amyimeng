@@ -66,7 +66,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 3.  Integrate a GitHub repo with an R studio project, including .gitignore file
@@ -102,7 +102,7 @@ Below each learning objective is a list of general expectations for meeting that
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: A syntax error between line 384-390. An extra of % was added.
 
 6.  Use arithmetic, comparison, and logical operators
 
@@ -112,7 +112,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 7.  Parse and define functions and arguments
@@ -136,7 +136,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 ### Tidyverse
@@ -149,7 +149,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 10. Use `dplyr` and `tidyr` functions to transform data
@@ -162,7 +162,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 11. Use `stringr` functions to work with string variables
@@ -173,7 +173,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 12. Use `forcats` functions to work with factor variables
@@ -184,7 +184,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 ### Data visualization with ggplot2
@@ -325,7 +325,7 @@ Below each learning objective is a list of general expectations for meeting that
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: Not all chunks are labeled. For some of those labeled, the options are not placed right under the r identifier line so it won't be recognized. Feel free to resubmit to hit this objective.
 
 23. Use code chunks to set up a quarto document
 
@@ -339,7 +339,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 24. Render publication-quality tables, figures, and images from code chunks
@@ -517,11 +517,11 @@ Thoughtful reflections may earn engagement points.
 
 ## Grader feedback
 
--   Grader:
--   Date:
--   Points toward unique objectives (up to 20):
--   Additional points (up to 20):
--   TA provisional engagement points (up to 10):
+-   Grader: Mian
+-   Date: March 5, 2025
+-   Points toward unique objectives (up to 20): 4
+-   Additional points (up to 20): 9 unassessed + 4 objectives met
+-   TA provisional engagement points (up to 10): 5
 -   Final approved engagement points (up to 10):
 -   Total points (up to 50):
 
