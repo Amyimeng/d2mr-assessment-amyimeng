@@ -8,16 +8,16 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## GitHub and R Studio
 
-1.  [ ] Create and maintain a repo with sensible organization and naming conventions
+1.  [x] Create and maintain a repo with sensible organization and naming conventions
 2.  [x] Maintain an informative and up-to-date README.md
-3.  [ ] Integrate a GitHub repo with an R studio project, including .gitignore file
-4.  [ ] Effectively use version control
+3.  [x] Integrate a GitHub repo with an R studio project, including .gitignore file
+4.  [x] Effectively use version control
 
 ## R programming
 
 5.  [x] Find, install, require, and load R packages
 6.  [x] Use arithmetic, comparison, and logical operators
-7.  [ ] Parse and define functions and arguments
+7.  [x] Parse and define functions and arguments
 8.  [x] Parse and write conditional statements and/or loops
 
 ## Tidyverse
@@ -29,33 +29,33 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## Data visualization with ggplot2
 
-13. [ ] Produce 1- and 2-variable plots with `geom_*` layers
-14. [ ] Use dynamic aesthetics to group data
-15. [ ] Use facets to create parallel plots
-16. [ ] Create publication-quality plots using `theme` and `labs` layers
+13. [x] Produce 1- and 2-variable plots with `geom_*` layers
+14. [x] Use dynamic aesthetics to group data
+15. [x] Use facets to create parallel plots
+16. [x] Create publication-quality plots using `theme` and `labs` layers
 
 ## Data analysis
 
 17. [x] Perform simple descriptive analyses with multiple data types
-18. [ ] Perform simple hypothesis testing analyses for multiple data types
-19. [ ] Present and interpret statistics in manuscript narrative
+18. [x] Perform simple hypothesis testing analyses for multiple data types
+19. [x] Present and interpret statistics in manuscript narrative
 
 ## BibTeX
 
-20. [ ] Render APA7 in-text citations with BibTeX syntax for multiple citation forms
-21. [ ] Render an APA7 references page from a .bib file
+20. [x] Render APA7 in-text citations with BibTeX syntax for multiple citation forms
+21. [x] Render an APA7 references page from a .bib file
 
 ## Notebooks and code chunks
 
-22. [ ] Create and effectively use code chunks following best practices
+22. [x] Create and effectively use code chunks following best practices
 23. [x] Use code chunks to set up a quarto document
-24. [ ] Render publication-quality tables, figures, and images from code chunks
-25. [ ] Execute descriptive analyses and/or hypothesis testing in code chunks
+24. [x] Render publication-quality tables, figures, and images from code chunks
+25. [x] Execute descriptive analyses and/or hypothesis testing in code chunks
 
 ## R Markdown and Quarto
 
-26. [ ] Create and maintain a quarto document YAML header
-27. [ ] Use quarto R Markdown to compose an academic manuscript
-28. [ ] Use inline R variables to replace static text
-29. [ ] Run inline R functions to render dynamic data-dependent text
-30. [ ] Use `knitr` and quarto to produce an APA7 formatted 1-click PDF manuscript
+26. [x] Create and maintain a quarto document YAML header
+27. [x] Use quarto R Markdown to compose an academic manuscript
+28. [x] Use inline R variables to replace static text
+29. [x] Run inline R functions to render dynamic data-dependent text
+30. [x] Use `knitr` and quarto to produce an APA7 formatted 1-click PDF manuscript
